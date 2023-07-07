@@ -8,10 +8,10 @@ from random_forest_2nd import train_model
 from random_forest_2nd import predict
 
 # Load the dataset
-data = pd.read_csv("C:/Users/User/PycharmProjects/Python_Tutorial/USDA_KM_V3.csv")
+data = pd.read_csv("USDA_KM_V3.csv")
 
 # Load the model and scaler
-kmeans = joblib.load('C:/Users/User/PycharmProjects/Python_Tutorial/kmeans_v2.joblib')
+kmeans = joblib.load('kmeans_v2.joblib')
 # scaler = joblib.load('C:/Users/User/PycharmProjects/Python_Tutorial/scaler.joblib')
 
 # Create a feature matrix
