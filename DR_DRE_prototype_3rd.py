@@ -164,7 +164,7 @@ with tab1:
             st.session_state.submit_disabled = True  # Disable the "Submit" button
     
         # Create button to navigate to Page 2
-        if not st.session_state.submit_disabled and st.button("Submit"):
+        if st.button("Submit", disabled=st.session_state.submit_disabled):
             with tab2:
                 # Page 2
                 st.title("Results")
