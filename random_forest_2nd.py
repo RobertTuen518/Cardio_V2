@@ -15,7 +15,7 @@ def load_data():
     """This function returns the preprocessed data"""
 
     # Load the dataset into DataFrame.
-    df = pd.read_csv('C:/Users/User/PycharmProjects/Python_Tutorial/cardio.csv')
+    df = pd.read_csv('cardio.csv')
 
     # Drop the id column
     df.drop('id', axis=1, inplace=True)
