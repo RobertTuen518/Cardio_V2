@@ -162,6 +162,9 @@ with tab1:
                 "limiting added sugars and cholesterol-rich foods.")
             st.session_state.submit_disabled = True  # Disable the "Submit" button
 
+    if 'submit_disabled' not in st.session_state:
+    st.session_state.submit_disabled = False
+    
     # Create button to navigate to Page 2
     if st.button("Submit", disabled=st.session_state.submit_disabled):
         with tab2:
