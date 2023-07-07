@@ -67,7 +67,6 @@ with tab1:
     name = st.text_input("Name")
 
     # Create numeric input for age
-    # age = st.number_input("Age", min_value=0, max_value=120)
     age = st.slider("Age", 0, 120, 10)
 
     # Create a select widget for gender
@@ -79,18 +78,25 @@ with tab1:
     # Create numeric input for weight
     weight = st.number_input("Weight (kg)", min_value=0.0, max_value=500.0, step=0.1)
 
+    # Create slider for Systolic Blood Pressure
     systolic_bp = st.slider("Systolic Blood Pressure (mmHg)", 70, 190, 120)
 
+    # Create slider for Diastolic Blood Pressure
     diastolic_bp = st.slider("Diastolic Blood Pressure (mmHg)", 40, 100, 80)
 
+    # Create a select widget for cholesterol
     cholesterol = st.selectbox('Cholesterol Level', options=['Normal', 'Above Normal', 'Well Above Normal'])
 
+    # Create a select widget for glucose
     glucose = st.selectbox('Glucose Level', options=['Normal', 'Above Normal', 'Well Above Normal'])
 
+    # Create a select widget for smoke
     smoke = st.selectbox('Do you smoke?', options=['Yes', 'No'])
 
+    # Create a radio button for alcohol
     alcohol = st.radio("Do you like to drink alcohol?", ("Yes", "No"))
 
+    # Create a radio button for active
     active = st.radio("Are you an active person?", ("Yes", "No"))
 
     # Check the value of 'active' to determine the select box behavior
@@ -138,8 +144,12 @@ with tab1:
         # Get the prediction
         prediction = predict(X, y, features)
 
+        # The prediction is sucessfull
         st.success("Predicted Sucessfully")
-
+        
+        # Default submit button is set to disable
+        st.submit_disabled = True
+    
         # Print the output according to the prediction
         if prediction == 1:
             st.info('You are at high risk of developing a cardiovascular disease.')
