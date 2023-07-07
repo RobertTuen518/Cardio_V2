@@ -51,7 +51,7 @@ tab1, tab2, tab3 = st.tabs(["Page 1", "Page 2", "Diet Recommendation"])
 
 with tab1:
     # Page 1
-    image = PIL.Image.open('C:/Users/User/PycharmProjects/Python_Tutorial/OIP.jpg')
+    image = PIL.Image.open('OIP.jpg')
     st.image(image, width=640)
 
     st.header("Diet Recommendation and Cardiovascular Disease Risk Prediction")
