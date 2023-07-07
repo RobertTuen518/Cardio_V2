@@ -251,7 +251,7 @@ with tab3:
 
     # Create recommend diet button on Page 2
     # Create a button that triggers the diet_recommendation function based on user input
-    if st.button("Recommend Diet", disabled=st.submit_disabled):
+    if st.button("Recommend Diet", disabled=st.session_state.submit_disabled):
 
         # Display the recommendations in a table
         st.info("Top 10 recommended foods:")
