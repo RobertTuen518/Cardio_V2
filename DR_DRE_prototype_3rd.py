@@ -154,16 +154,16 @@ with tab1:
         if prediction == 1:
             st.info('You are at high risk of developing a cardiovascular disease.')
             st.warning("You should consume low saturated fats, controlling calories, and limiting cholesterol intake.")
-            st.submit_disabled = False  # Enable the "Submit" button
+            submit_disabled = False  # Enable the "Submit" button
         else:
             st.info('You are at low risk of developing a cardiovascular disease.')
             st.info(
                 "You should maintain a balanced diet and a moderate intake of calories while "
                 "limiting added sugars and cholesterol-rich foods.")
-            st.submit_disabled = True  # Disable the "Submit" button
+            submit_disabled = True  # Disable the "Submit" button
 
     # Create button to navigate to Page 2
-    if st.button("Submit", disabled=st.submit_disabled):
+    if st.button("Submit", disabled=submit_disabled):
         with tab2:
             # Page 2
             st.title("Results")
