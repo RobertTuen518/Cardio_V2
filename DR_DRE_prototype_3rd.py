@@ -148,22 +148,22 @@ with tab1:
         st.success("Predicted Sucessfully")
         
         # Default submit button is set to disable
-        submit_disabled = True
+        st.session_state.submit_disabled = True
     
         # Print the output according to the prediction
         if prediction == 1:
             st.info('You are at high risk of developing a cardiovascular disease.')
             st.warning("You should consume low saturated fats, controlling calories, and limiting cholesterol intake.")
-            submit_disabled = False  # Enable the "Submit" button
+            st.session_state.submit_disabled = False  # Enable the "Submit" button
         else:
             st.info('You are at low risk of developing a cardiovascular disease.')
             st.info(
                 "You should maintain a balanced diet and a moderate intake of calories while "
                 "limiting added sugars and cholesterol-rich foods.")
-            submit_disabled = True  # Disable the "Submit" button
+            st.session_state.submit_disabled = True  # Disable the "Submit" button
 
     # Create button to navigate to Page 2
-    if st.button("Submit", disabled=submit_disabled):
+    if st.button("Submit", disabled=st.session_state.submit_disabled):
         with tab2:
             # Page 2
             st.title("Results")
