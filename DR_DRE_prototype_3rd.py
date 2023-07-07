@@ -147,97 +147,98 @@ with tab1:
         # The prediction is sucessfull
         st.success("Predicted Sucessfully")
         
-        # Default submit button is set to disable
-        st.session_state.submit_disabled = True
+        # Initialize the submit_disabled attribute
+        if 'submit_disabled' not in st.session_state:
+            st.session_state.submit_disabled = True
     
-        # Print the output according to the prediction
-        if prediction == 1:
-            st.info('You are at high risk of developing a cardiovascular disease.')
-            st.warning("You should consume low saturated fats, controlling calories, and limiting cholesterol intake.")
-            st.session_state.submit_disabled = False  # Enable the "Submit" button
-        else:
-            st.info('You are at low risk of developing a cardiovascular disease.')
-            st.info(
-                "You should maintain a balanced diet and a moderate intake of calories while "
-                "limiting added sugars and cholesterol-rich foods.")
-            st.session_state.submit_disabled = True  # Disable the "Submit" button
+            # Print the output according to the prediction
+            if prediction == 1:
+                st.info('You are at high risk of developing a cardiovascular disease.')
+                st.warning("You should consume low saturated fats, controlling calories, and limiting cholesterol intake.")
+                st.session_state.submit_disabled = False  # Enable the "Submit" button
+            else:
+                st.info('You are at low risk of developing a cardiovascular disease.')
+                st.info(
+                    "You should maintain a balanced diet and a moderate intake of calories while "
+                    "limiting added sugars and cholesterol-rich foods.")
+                st.session_state.submit_disabled = True  # Disable the "Submit" button
     
-    # Create button to navigate to Page 2
-    if st.button("Submit", disabled=st.session_state.submit_disabled):
-        with tab2:
-            # Page 2
-            st.title("Results")
-            # st.subheader("Based on the information you provided, your results are as follows:")
-            st.markdown(
-                "<h4 style='margin-bottom: 0px;'>Based on the information you provided, "
-                "your results are as follows:</h4>",
-                unsafe_allow_html=True)
-
-            # Calculate BMI
-            if height != 0:
-                bmi = weight / ((height / 100) ** 2)
-                bmi_status = ""
-                if bmi < 18.5:
-                    bmi_status = "Underweight"
-                elif 18.5 <= bmi < 25:
-                    bmi_status = "Normal weight"
-                elif 25 <= bmi < 30:
-                    bmi_status = "Overweight"
+        # Create button to navigate to Page 2
+        if not st.session_state.submit_disabled and st.button("Submit"):
+            with tab2:
+                # Page 2
+                st.title("Results")
+                # st.subheader("Based on the information you provided, your results are as follows:")
+                st.markdown(
+                    "<h4 style='margin-bottom: 0px;'>Based on the information you provided, "
+                    "your results are as follows:</h4>",
+                    unsafe_allow_html=True)
+    
+                # Calculate BMI
+                if height != 0:
+                    bmi = weight / ((height / 100) ** 2)
+                    bmi_status = ""
+                    if bmi < 18.5:
+                        bmi_status = "Underweight"
+                    elif 18.5 <= bmi < 25:
+                        bmi_status = "Normal weight"
+                    elif 25 <= bmi < 30:
+                        bmi_status = "Overweight"
+                    else:
+                        bmi_status = "Obese"
                 else:
-                    bmi_status = "Obese"
-            else:
-                bmi = 0
-                bmi_status = "Invalid input: height cannot be zero"
-
-            age = float(age)
-            weight = float(weight)
-            height = float(height)
-
-            # Create a dictionary for each physical activity level
-            activity_level_dict = {
-                "Sedentary": 1.2,
-                "Lightly Active": 1.375,
-                "Moderately Active": 1.55,
-                "Very Active": 1.725,
-                "Extra Active": 1.9
-            }
-
-            # Calculate total daily energy expenditure based on Harris-Benedict Equation
-            activity_level_value = activity_level_dict.get(activity_level, 1.2)
-
-            if gender == "Male":
-                bmr = 66.5 + (13.75 * weight) + (5.003 * height) - (6.75 * age)
-            else:
-                bmr = 655.1 + (9.563 * weight) + (1.850 * height) - (4.676 * age)
-
-            # Total Daily Energy Expenditure (tdee) in calories multiply Basal Metabolic Rate (bmr) by the
-            # appropriate activity factor
-            tdee = bmr * activity_level_value
-
-            st.session_state.tdee = round(tdee, 2)
-
-            # Display results in table form
-            results = [
-                ("Name", name),
-                ("Age", int(age)),
-                ("Gender", gender),
-                ("BMI", round(bmi, 2)),
-                ("BMI Status", bmi_status),
-                ("Total Daily Energy Expenditure in calories", st.session_state.tdee)
-            ]
-
-            col1, col2 = st.columns(2)
-            for i, r in enumerate(results):
-                with col1:
-                    st.write(f"{r[0]}:")
-                with col2:
-                    st.write(r[1])
-
-            # Create button to navigate back to Page 1
-            if st.button("Reset"):
-                st.session_state = tab1
-                # with tab1:
-                # st.experimental_rerun()
+                    bmi = 0
+                    bmi_status = "Invalid input: height cannot be zero"
+    
+                age = float(age)
+                weight = float(weight)
+                height = float(height)
+    
+                # Create a dictionary for each physical activity level
+                activity_level_dict = {
+                    "Sedentary": 1.2,
+                    "Lightly Active": 1.375,
+                    "Moderately Active": 1.55,
+                    "Very Active": 1.725,
+                    "Extra Active": 1.9
+                }
+    
+                # Calculate total daily energy expenditure based on Harris-Benedict Equation
+                activity_level_value = activity_level_dict.get(activity_level, 1.2)
+    
+                if gender == "Male":
+                    bmr = 66.5 + (13.75 * weight) + (5.003 * height) - (6.75 * age)
+                else:
+                    bmr = 655.1 + (9.563 * weight) + (1.850 * height) - (4.676 * age)
+    
+                # Total Daily Energy Expenditure (tdee) in calories multiply Basal Metabolic Rate (bmr) by the
+                # appropriate activity factor
+                tdee = bmr * activity_level_value
+    
+                st.session_state.tdee = round(tdee, 2)
+    
+                # Display results in table form
+                results = [
+                    ("Name", name),
+                    ("Age", int(age)),
+                    ("Gender", gender),
+                    ("BMI", round(bmi, 2)),
+                    ("BMI Status", bmi_status),
+                    ("Total Daily Energy Expenditure in calories", st.session_state.tdee)
+                ]
+    
+                col1, col2 = st.columns(2)
+                for i, r in enumerate(results):
+                    with col1:
+                        st.write(f"{r[0]}:")
+                    with col2:
+                        st.write(r[1])
+    
+                # Create button to navigate back to Page 1
+                if st.button("Reset"):
+                    st.session_state = tab1
+                    # with tab1:
+                    # st.experimental_rerun()
 
 with tab3:
     # Page 3
