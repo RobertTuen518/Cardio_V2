@@ -148,7 +148,7 @@ with tab1:
         st.success("Predicted Sucessfully")
         
         # Default submit button is set to disable
-         st.session_state.submit_disabled = True
+        st.session_state.submit_disabled = True
     
         # Print the output according to the prediction
         if prediction == 1:
